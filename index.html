@@ -12,12 +12,13 @@
       --text-dark: #1f2933;
       --text-muted: #5f6c7b;
       --white: #ffffff;
+      --link: #1f6f8b;
     }
 
     * { box-sizing: border-box; margin:0; padding:0; }
     body { font-family: "Segoe UI", Roboto, sans-serif; background: var(--background); color: var(--text-dark); line-height: 1.6; }
 
-    a { text-decoration: none; color: var(--primary); }
+    a { text-decoration: none; color: var(--link); }
     a:hover { text-decoration: underline; }
 
     .container { max-width: 1100px; margin: auto; padding: 0 1rem; }
@@ -31,7 +32,9 @@
     /* Hero */
     .hero { background: linear-gradient(rgba(31,111,139,0.9), rgba(31,111,139,0.9)), url('hero-placeholder.jpg') no-repeat center/cover; color: var(--white); text-align: center; padding: 4rem 1rem; }
     .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
-    .hero p { font-size: 1.1rem; max-width: 700px; margin: auto; }
+    .hero p { font-size: 1.2rem; max-width: 700px; margin: 0.5rem auto; }
+    .blink { animation: blink 1s steps(5, start) infinite; color: var(--secondary); font-weight:bold; }
+    @keyframes blink { 50% { opacity:0; } }
 
     section { padding: 3rem 0; }
     section h2 { color: var(--primary); margin-bottom: 1rem; font-size: 1.8rem; }
@@ -54,13 +57,13 @@
     .featured-item { background: var(--white); border-radius:8px; padding:1rem; box-shadow:0 4px 12px rgba(0,0,0,0.05); }
     .featured-item img { width:100%; border-radius:6px; margin-bottom:0.5rem; }
 
+    /* Resources & Career (List format) */
+    ul.list { list-style: disc; margin-left: 1.5rem; }
+    ul.list li { margin-bottom: 0.7rem; }
+
     /* Footer */
     footer { background:#e9eef3; padding:2rem 1rem; text-align:center; font-size:0.9rem; color: var(--text-muted); margin-top:3rem; }
     footer a { color: var(--primary); margin: 0 0.5rem; }
-
-    /* Blinking notice */
-    .blink { animation: blink 1s steps(5, start) infinite; color: var(--secondary); font-weight:bold; }
-    @keyframes blink { 50% { opacity:0; } }
 
     @media(max-width:768px) {
       .header-content { flex-direction: column; gap:0.5rem; }
@@ -78,8 +81,8 @@
     <nav>
       <a href="#about">About Us</a>
       <a href="#projects">Our Projects</a>
-      <a href="#resources">Resources / Publication</a>
-      <a href="#career">Career</a>
+      <a href="#team">Our Team</a>
+      <a href="#contact">Contact</a>
     </nav>
   </div>
 </header>
@@ -88,7 +91,8 @@
 <section class="hero">
   <div class="container">
     <h1>SOCIAL INITIATIVE FOR DRIVING DEVELOPMENT AND HUMANITARIAN IMPACT - Nepal</h1>
-    <p>Empowering communities through health, education, gender equality, and sustainable development.</p>
+    <p>Empowering communities through:</p>
+    <p>Health | Education | Gender Equality | Sustainable Development</p>
     <p class="blink">News / Notice: Stay updated on our activities!</p>
   </div>
 </section>
@@ -193,26 +197,26 @@
   </div>
 </section>
 
-<!-- Resources & Publications -->
+<!-- Resources / Publication -->
 <section id="resources" class="container">
   <h2>Resources / Publications</h2>
-  <div class="cards">
-    <div class="card">Journal Articles</div>
-    <div class="card">Reports</div>
-    <div class="card">Policy Briefs</div>
-    <div class="card">Project Briefs</div>
-    <div class="card">Media Presence</div>
-    <div class="card">Educational Videos / Documentaries</div>
-  </div>
+  <ul class="list">
+    <li><a href="#">Journal Articles</a></li>
+    <li><a href="#">Reports</a></li>
+    <li><a href="#">Policy Briefs</a></li>
+    <li><a href="#">Project Briefs</a></li>
+    <li><a href="#">Media Presence</a></li>
+    <li><a href="#">Educational Videos / Documentaries</a></li>
+  </ul>
 </section>
 
 <!-- Career -->
 <section id="career" class="container">
   <h2>Career</h2>
-  <div class="cards">
-    <div class="card">Internship Opportunities</div>
-    <div class="card">Job Vacancy</div>
-  </div>
+  <ul class="list">
+    <li><a href="#">Internship Opportunities</a></li>
+    <li><a href="#">Job Vacancy</a></li>
+  </ul>
 </section>
 
 <!-- Contact -->
