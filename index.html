@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Public Health NGO</title>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIDDHI Nepal - Social Initiative for Driving Development and Humanitarian Impact</title>
   <style>
     :root {
       --primary: #1f6f8b;
@@ -15,277 +14,228 @@
       --white: #ffffff;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body { font-family: "Segoe UI", Roboto, sans-serif; background: var(--background); color: var(--text-dark); line-height: 1.6; }
 
-    body {
-      font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--background);
-      color: var(--text-dark);
-      line-height: 1.6;
-    }
+    a { text-decoration: none; color: var(--primary); }
+    a:hover { text-decoration: underline; }
 
-    /* ---------- Header ---------- */
-    header {
-      background: var(--primary);
-      color: var(--white);
-      padding: 1.2rem 0;
-    }
+    .container { max-width: 1100px; margin: auto; padding: 0 1rem; }
 
-    .container {
-      max-width: 1100px;
-      margin: auto;
-      padding: 0 1.2rem;
-    }
+    header { background: var(--primary); color: var(--white); padding: 1rem 0; }
+    .header-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+    .logo { font-size: 1.4rem; font-weight: bold; }
+    nav a { color: var(--white); margin-left: 1rem; font-size: 0.95rem; }
+    nav a:hover { opacity: 0.8; }
 
-    .header-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+    /* Hero */
+    .hero { background: linear-gradient(rgba(31,111,139,0.9), rgba(31,111,139,0.9)), url('hero-placeholder.jpg') no-repeat center/cover; color: var(--white); text-align: center; padding: 4rem 1rem; }
+    .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+    .hero p { font-size: 1.1rem; max-width: 700px; margin: auto; }
 
-    .logo {
-      font-size: 1.4rem;
-      font-weight: 600;
-    }
+    section { padding: 3rem 0; }
+    section h2 { color: var(--primary); margin-bottom: 1rem; font-size: 1.8rem; }
+    section p { max-width: 800px; color: var(--text-muted); margin-bottom: 1rem; }
 
-    nav a {
-      color: var(--white);
-      text-decoration: none;
-      margin-left: 1.2rem;
-      font-size: 0.95rem;
-    }
+    /* Cards */
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+    .card { background: var(--white); border-radius: 8px; padding: 1.5rem; box-shadow: 0 6px 15px rgba(0,0,0,0.06); }
+    .card h3 { color: var(--primary); margin-bottom: 0.5rem; font-size: 1.2rem; }
+    .card p { font-size: 0.95rem; }
 
-    nav a:hover {
-      text-decoration: underline;
-    }
+    /* Team */
+    .team { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); gap:1.5rem; margin-top:2rem; }
+    .member { background: var(--white); border-radius: 8px; padding: 1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+    .member h4 { color: var(--primary); margin-bottom:0.5rem; font-size:1.1rem; }
+    .member p { font-size:0.9rem; color: var(--text-muted); }
 
-    /* ---------- Hero ---------- */
-    .hero {
-      background: linear-gradient(
-        rgba(31, 111, 139, 0.9),
-        rgba(31, 111, 139, 0.9)
-      );
-      color: var(--white);
-      padding: 4rem 0;
-      text-align: center;
-    }
+    /* Featured Work */
+    .featured { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap:1.5rem; margin-top:2rem; }
+    .featured-item { background: var(--white); border-radius:8px; padding:1rem; box-shadow:0 4px 12px rgba(0,0,0,0.05); }
+    .featured-item img { width:100%; border-radius:6px; margin-bottom:0.5rem; }
 
-    .hero h1 {
-      font-size: 2.4rem;
-      margin-bottom: 1rem;
-    }
+    /* Footer */
+    footer { background:#e9eef3; padding:2rem 1rem; text-align:center; font-size:0.9rem; color: var(--text-muted); margin-top:3rem; }
+    footer a { color: var(--primary); margin: 0 0.5rem; }
 
-    .hero p {
-      max-width: 700px;
-      margin: auto;
-      font-size: 1.1rem;
-      opacity: 0.95;
-    }
+    /* Blinking notice */
+    .blink { animation: blink 1s steps(5, start) infinite; color: var(--secondary); font-weight:bold; }
+    @keyframes blink { 50% { opacity:0; } }
 
-    /* ---------- Sections ---------- */
-    section {
-      padding: 3.5rem 0;
-    }
-
-    section h2 {
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-      color: var(--primary);
-    }
-
-    section p {
-      max-width: 800px;
-      color: var(--text-muted);
-    }
-
-    /* ---------- Focus Areas ---------- */
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-
-    .card {
-      background: var(--white);
-      border-radius: 8px;
-      padding: 1.6rem;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
-    }
-
-    .card h3 {
-      margin-bottom: 0.6rem;
-      color: var(--primary);
-      font-size: 1.2rem;
-    }
-
-    .card p {
-      font-size: 0.95rem;
-    }
-
-    /* ---------- Call to Action ---------- */
-    .cta {
-      background: var(--secondary);
-      color: #1a2e05;
-      text-align: center;
-      padding: 3rem 1rem;
-      border-radius: 8px;
-    }
-
-    .cta h2 {
-      color: #1a2e05;
-      margin-bottom: 0.8rem;
-    }
-
-    .cta button {
-      margin-top: 1.2rem;
-      padding: 0.7rem 1.6rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      background: var(--primary);
-      color: var(--white);
-    }
-
-    .cta button:hover {
-      opacity: 0.9;
-    }
-
-    /* ---------- Footer ---------- */
-    footer {
-      background: #e9eef3;
-      padding: 1.5rem 0;
-      margin-top: 3rem;
-      text-align: center;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-
-    /* ---------- Responsive ---------- */
-    @media (max-width: 768px) {
-      .header-content {
-        flex-direction: column;
-        gap: 0.6rem;
-      }
-
-      nav a {
-        margin-left: 0.6rem;
-        margin-right: 0.6rem;
-      }
-
-      .hero h1 {
-        font-size: 2rem;
-      }
+    @media(max-width:768px) {
+      .header-content { flex-direction: column; gap:0.5rem; }
+      nav a { margin:0 0.5rem; }
+      .hero h1 { font-size:2rem; }
     }
   </style>
 </head>
-
 <body>
 
-  <!-- Header -->
-  <header>
-    <div class="container header-content">
-      <div class="logo">Public Health NGO</div>
-      <nav>
-        <a href="#about">About</a>
-        <a href="#focus">Our Work</a>
-        <a href="#contact">Contact</a>
-      </nav>
+<!-- Header -->
+<header>
+  <div class="container header-content">
+    <div class="logo">SIDDHI Nepal</div>
+    <nav>
+      <a href="#about">About Us</a>
+      <a href="#projects">Our Projects</a>
+      <a href="#resources">Resources / Publication</a>
+      <a href="#career">Career</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <h1>SOCIAL INITIATIVE FOR DRIVING DEVELOPMENT AND HUMANITARIAN IMPACT - Nepal</h1>
+    <p>Empowering communities through health, education, gender equality, and sustainable development.</p>
+    <p class="blink">News / Notice: Stay updated on our activities!</p>
+  </div>
+</section>
+
+<!-- About Us -->
+<section id="about" class="container">
+  <h2>About Us</h2>
+  <p>The Social Initiative for Driving Development and Humanitarian Impact (SIDDHI Nepal) is a youth and women-led nonprofit organization committed to advancing inclusive, ethical, and sustainable development. Our work focuses on improving health, education, gender equality, environmental resilience, and economic opportunities for marginalized communities. We are registered under Society’s Act 2034 and with the Social Welfare Council (SWC), Nepal. Our Central Office is located at Lalitpur.</p>
+  
+  <h3>Our Mission</h3>
+  <p>To drive inclusive, ethical, and sustainable development by empowering communities through education, health, research, innovation, and equitable opportunities—ensuring dignity, resilience, and well-being for all.</p>
+
+  <h3>Our Vision</h3>
+  <p>A society where communities—especially the most vulnerable—are healthy, educated, economically secure, gender-equal, and resilient to climate and social challenges.</p>
+</section>
+
+<!-- Core Focus Areas -->
+<section id="focus" class="container">
+  <h2>Our Core Focus Areas / Our Work</h2>
+  <div class="cards">
+    <div class="card">Public Health & Well-being</div>
+    <div class="card">Education & Lifelong Learning</div>
+    <div class="card">Gender Equality & Social Inclusion</div>
+    <div class="card">Economic Empowerment</div>
+    <div class="card">Climate Change & Environmental Sustainability</div>
+    <div class="card">Human Rights & Social Justice</div>
+    <div class="card">Research, Innovation & Knowledge Management</div>
+    <div class="card">Digital cutting-edge Technologies</div>
+    <div class="card">Sustainable Social Development</div>
+  </div>
+</section>
+
+<!-- Expertise -->
+<section id="expertise" class="container">
+  <h2>Our Expertise</h2>
+  <div class="cards">
+    <div class="card">Research</div>
+    <div class="card">Program Designing</div>
+    <div class="card">Monitoring, Evaluation & Knowledge Management</div>
+    <div class="card">SBCC Material Development</div>
+    <div class="card">Capacity Building & Technical Assistance</div>
+    <div class="card">Digital Health, Data Analytics, SMART Technology Solutions</div>
+  </div>
+</section>
+
+<!-- Approach -->
+<section id="approach" class="container">
+  <h2>Our Approach</h2>
+  <div class="cards">
+    <div class="card">Ethical & Transparent</div>
+    <div class="card">Collaborative & Partnership-Driven</div>
+    <div class="card">Evidence-Based & Innovative</div>
+    <div class="card">Community-Centered</div>
+  </div>
+</section>
+
+<!-- Featured Work -->
+<section id="projects" class="container">
+  <h2>Featured Work</h2>
+  <div class="featured">
+    <div class="featured-item">
+      <img src="human-milk-bank.jpg" alt="Human Milk Bank Project">
+      <h3>Perception & Experience of Human Milk Bank in Nepal</h3>
+      <p>Ongoing. Project Site: Paropakar Maternity Hospital, Kathmandu</p>
+      <a href="#">Details</a>
     </div>
-  </header>
-
-  <!-- Hero -->
-  <section class="hero">
-    <div class="container">
-      <h1>Improving Public Health for Everyone</h1>
-      <p>
-        We are a non-profit organization dedicated to advancing public health
-        through research, community engagement, and evidence-based interventions.
-      </p>
+    <div class="featured-item">
+      <img src="mental-health.jpg" alt="Mental Health Project">
+      <h3>Mental Health & Support Needs of Adolescents in Kageshwori Manohara</h3>
+      <p>Ongoing. Project Site: Kageshwori Manohara Municipality</p>
+      <a href="#">Details</a>
     </div>
-  </section>
-
-  <!-- About -->
-  <section id="about">
-    <div class="container">
-      <h2>About Us</h2>
-      <p>
-        Our NGO works at the intersection of public health, education, and
-        community development. We aim to reduce preventable diseases, promote
-        healthy lifestyles, and strengthen healthcare awareness in underserved
-        communities.
-      </p>
+    <div class="featured-item">
+      <img src="climate-health.jpg" alt="Climate Health Project">
+      <h3>Effects of Climate Change on Health in Nepal</h3>
+      <p>Project based on National Climate Change Survey 2022</p>
+      <a href="#">Details</a>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Focus Areas -->
-  <section id="focus">
-    <div class="container">
-      <h2>Our Focus Areas</h2>
-
-      <div class="cards">
-        <div class="card">
-          <h3>Community Health</h3>
-          <p>
-            Grassroots programs focused on sanitation, nutrition, and disease
-            prevention at the community level.
-          </p>
-        </div>
-
-        <div class="card">
-          <h3>Health Education</h3>
-          <p>
-            Awareness campaigns and educational initiatives to empower people
-            with reliable health information.
-          </p>
-        </div>
-
-        <div class="card">
-          <h3>Research & Policy</h3>
-          <p>
-            Data-driven research and collaboration to support better public
-            health policies and interventions.
-          </p>
-        </div>
-      </div>
+<!-- Team -->
+<section id="team" class="container">
+  <h2>Our Team</h2>
+  <div class="team">
+    <div class="member">
+      <h4>Ms Sushmita Ghimire - Chairperson / Founding Director</h4>
+      <p>Public health professional with extensive experience in health, education, climate change, and humanitarian response in Nepal.</p>
     </div>
-  </section>
-
-  <!-- Call to Action -->
-  <section class="container">
-    <div class="cta">
-      <h2>Get Involved</h2>
-      <p>
-        Join us in our mission to create healthier communities through action,
-        research, and collaboration.
-      </p>
-      <button onclick="handleContact()">Contact Us</button>
+    <div class="member">
+      <h4>Ms Sushmita KC</h4>
+      <p>Ph.D. Scholar and public health researcher specializing in child development, gender studies, and community-oriented research.</p>
     </div>
-  </section>
-
-  <!-- Footer -->
-  <footer id="contact">
-    <div class="container">
-      © <span id="year"></span> Public Health NGO · All rights reserved
+    <div class="member">
+      <h4>Ms Sabina Khadka - Secretary</h4>
+      <p>Responsible for administrative and organizational coordination.</p>
     </div>
-  </footer>
+    <div class="member">
+      <h4>Ms Kanchan Shrestha - Treasurer</h4>
+      <p>Oversees financial management and accountability.</p>
+    </div>
+  </div>
+</section>
 
-  <script>
-    // Update year automatically
-    document.getElementById("year").textContent =
-      new Date().getFullYear();
+<!-- Resources & Publications -->
+<section id="resources" class="container">
+  <h2>Resources / Publications</h2>
+  <div class="cards">
+    <div class="card">Journal Articles</div>
+    <div class="card">Reports</div>
+    <div class="card">Policy Briefs</div>
+    <div class="card">Project Briefs</div>
+    <div class="card">Media Presence</div>
+    <div class="card">Educational Videos / Documentaries</div>
+  </div>
+</section>
 
-    function handleContact() {
-      alert(
-        "Thank you for your interest!\n\nPlease email us at: info@yourngo.org"
-      );
-    }
-  </script>
+<!-- Career -->
+<section id="career" class="container">
+  <h2>Career</h2>
+  <div class="cards">
+    <div class="card">Internship Opportunities</div>
+    <div class="card">Job Vacancy</div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="container">
+  <h2>Contact Us</h2>
+  <p>Jawalakhel, Lalitpur-04</p>
+  <p>Email: info@siddhinepal.org</p>
+  <p>Mobile: +977-980XXXXXXX</p>
+  <div>
+    <a href="#" target="_blank">Facebook</a> |
+    <a href="#" target="_blank">LinkedIn</a> |
+    <a href="#" target="_blank">Instagram</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  &copy; <span id="year"></span> SIDDHI Nepal · All rights reserved
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
 
 </body>
 </html>
