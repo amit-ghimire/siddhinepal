@@ -1,0 +1,21 @@
+node_modules/
+.next/
+out/
+build/
+dist/
+release.tar.gz
+*.tsbuildinfo
+
+# env
+.env
+.env*.local
+
+# local uploads (dev only — production uploads live outside the release tree)
+data/media/
+
+# misc
+.DS_Store
+*.pem
+npm-debug.log*
+.vscode/*
+!.vscode/extensions.json

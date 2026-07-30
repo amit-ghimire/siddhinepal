@@ -1,0 +1,117 @@
+name: Build and deploy to Hostinger
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Never let two deploys race the same release directory.
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
+env:
+  NODE_VERSION: '22'
+  REMOTE_USER: u569027851
+  REMOTE_HOST: siddhinepal.org
+  # Releases are versioned; data lives outside them and is never touched by a deploy.
+  RELEASES_DIR: /home/u569027851/releases
+  CURRENT_LINK: /home/u569027851/current
+  DATA_DIR: /home/u569027851/data
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - run: npm ci
+
+      # Runs here, not in the deploy job — this job has the full source tree
+      # and node_modules (src/migrations, payload.config.ts, drizzle) that
+      # `payload migrate` needs. The deploy job only ever has the built
+      # .next/standalone tarball, which is not enough to run it. Applying the
+      # schema before `next build` also means the build's own data-fetching
+      # (generateStaticParams etc.) runs against the up-to-date schema.
+      - name: Run migrations
+        env:
+          DATABASE_URI: ${{ secrets.DATABASE_URI }}
+          PAYLOAD_SECRET: ${{ secrets.PAYLOAD_SECRET }}
+        run: npx payload migrate
+
+      # NEXT_PUBLIC_* values are inlined at build time, so they must be set
+      # here rather than on the server. Setting them server-side is a silent no-op.
+      - name: Build
+        env:
+          NODE_ENV: production
+          NEXT_PUBLIC_SERVER_URL: https://www.siddhinepal.org
+          DATABASE_URI: ${{ secrets.DATABASE_URI }}
+          PAYLOAD_SECRET: ${{ secrets.PAYLOAD_SECRET }}
+        run: npm run build
+
+      # standalone omits these two directories. Copying them is not optional.
+      - name: Assemble artifact
+        run: |
+          cp -r .next/static .next/standalone/.next/static
+          if [ -d public ]; then cp -r public .next/standalone/public; fi
+          cd .next/standalone && tar -czf ../../release.tar.gz .
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release
+          path: release.tar.gz
+          retention-days: 7
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: release
+
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H "$REMOTE_HOST" >> ~/.ssh/known_hosts
+
+      - name: Upload and activate release
+        run: |
+          SHA="${GITHUB_SHA::8}"
+          scp release.tar.gz "$REMOTE_USER@$REMOTE_HOST:/tmp/$SHA.tar.gz"
+          ssh "$REMOTE_USER@$REMOTE_HOST" bash -se <<EOF
+            set -euo pipefail
+            mkdir -p "$RELEASES_DIR/$SHA/data" "$DATA_DIR/media"
+            tar -xzf "/tmp/$SHA.tar.gz" -C "$RELEASES_DIR/$SHA"
+            rm "/tmp/$SHA.tar.gz"
+
+            # Uploads live outside the release tree (server env var
+            # UPLOADS_DIR points Payload straight at $DATA_DIR/media — set
+            # that on the Hostinger app's Node env, not here). This symlink
+            # at releases/<sha>/data/media is a defence-in-depth fallback
+            # matching Media.ts's own process.cwd()-relative default, so
+            # even a missing UPLOADS_DIR still resolves outside the release
+            # tree instead of silently deleting the NGO's photo library.
+            ln -sfn "$DATA_DIR/media" "$RELEASES_DIR/$SHA/data/media"
+
+            ln -sfn "$RELEASES_DIR/$SHA" "$CURRENT_LINK"
+
+            # TODO: replace with Hostinger's actual restart mechanism.
+            # touch "$CURRENT_LINK/tmp/restart.txt"   # Passenger-style
+            # pm2 reload siddhi                       # if PM2 is available
+
+            # Keep the last five releases so rollback is just repointing the symlink.
+            ls -1dt "$RELEASES_DIR"/*/ | tail -n +6 | xargs -r rm -rf
+          EOF
+
+      - name: Verify
+        run: |
+          sleep 10
+          curl -fsS -o /dev/null -w '%{http_code}\n' https://www.siddhinepal.org

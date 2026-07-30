@@ -1,0 +1,89 @@
+/* Design tokens — "field instrument" direction (IMPLEMENTATION_BRIEF.md §6).
+   Colour pair sampled from siddhi logo.jpg; kept restrained rather than used
+   at full saturation, per the brief's warning against generic NGO defaults. */
+:root {
+  --paper: #f2f4f5;
+  --grid: #dce2e5;
+  --ink: #1b2a3a;
+  --ink-muted: #5a6b7a;
+  --ink-accent: #7c2e96;
+  --ink-accent-bright: #a945cb;
+  --annotate: #f7a1f8;
+
+  /* --font-display / --font-body / --font-mono come from next/font/google
+     (see fonts.ts), applied via a className on <html> — not redeclared here. */
+
+  --step-0: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --step-1: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+  --step-2: clamp(1.75rem, 1.5rem + 1.25vw, 2.5rem);
+  --step-3: clamp(2.5rem, 2rem + 2.5vw, 4rem);
+  --step-4: clamp(3.25rem, 2.5rem + 3.75vw, 5.5rem);
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  color: var(--ink);
+  background-color: var(--paper);
+  /* Faint graph-paper substrate. */
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+
+h1 {
+  font-size: var(--step-3);
+}
+h2 {
+  font-size: var(--step-2);
+}
+h3 {
+  font-size: var(--step-1);
+}
+
+/* Utility/data type: figures, district codes, field labels, captions. */
+.mono,
+.field-label,
+code {
+  font-family: var(--font-mono);
+}
+
+.field-label {
+  display: inline-block;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+/* Annotation-style highlight — a marker swipe under text, not a text colour
+   (the tint alone doesn't carry enough contrast to read as text). */
+.annotate {
+  background-color: var(--annotate);
+  padding: 0.05em 0.3em;
+  border-radius: 2px;
+}
+
+a {
+  color: var(--ink-accent);
+}
+
+a:hover {
+  color: var(--ink-accent-bright);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink-accent-bright);
+  outline-offset: 2px;
+}

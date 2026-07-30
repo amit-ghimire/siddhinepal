@@ -1,0 +1,48 @@
+.section {
+  max-width: 1080px;
+  margin: 4rem auto;
+  padding: 0 1.5rem;
+}
+
+.figure {
+  margin-bottom: 3rem;
+}
+
+.readout {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.value {
+  font-family: var(--font-mono);
+  font-size: var(--step-2);
+  color: var(--ink);
+}
+
+.unit {
+  font-family: var(--font-mono);
+  color: var(--ink-muted);
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  max-width: 640px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ink-accent-bright);
+}
+
+.overflow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  align-self: center;
+}

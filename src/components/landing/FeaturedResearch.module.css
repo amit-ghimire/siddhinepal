@@ -1,0 +1,35 @@
+.section {
+  padding: 4rem 1.5rem;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.card {
+  display: block;
+  border: 1px solid var(--grid);
+  padding: 1.25rem;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.meta {
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.cardTitle {
+  margin: 0.25rem 0 0.5rem;
+  font-size: var(--step-1);
+}
+
+.summary {
+  color: var(--ink-muted);
+  font-size: 0.95rem;
+}

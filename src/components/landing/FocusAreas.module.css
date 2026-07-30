@@ -1,0 +1,46 @@
+.section {
+  padding: 4rem 1.5rem;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.panels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1px;
+  background: var(--grid);
+  border: 1px solid var(--grid);
+}
+
+.panel {
+  background: var(--paper);
+  padding: 1.5rem;
+}
+
+/* Applied via JS only for the pinned horizontal-scroll variant (desktop,
+   motion allowed) — mobile and reduced-motion stay on the wrapping grid
+   above, per the brief's "drop pinning and horizontal scroll entirely". */
+.track {
+  display: flex;
+  flex-wrap: nowrap;
+  width: max-content;
+}
+
+.track .panel {
+  width: min(70vw, 420px);
+  flex-shrink: 0;
+}
+
+.number {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.title {
+  margin: 0.5rem 0;
+}
+
+.description {
+  color: var(--ink-muted);
+  font-size: 0.95rem;
+}
